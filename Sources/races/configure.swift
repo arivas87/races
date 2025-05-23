@@ -12,7 +12,7 @@ public func configure(_ app: Application) async throws {
                 hostname: "localhost",
                 username: "vapor",
                 password: "vapor",
-                database: "vapor",
+                database: "races",
                 tls: .disable
             )
         ),
@@ -20,5 +20,7 @@ public func configure(_ app: Application) async throws {
     )
 
     // register routes
-    try routes(app)
+    app.migrations.add(CreateRace())
+    
+    try app.register(collection: RaceController())
 }
